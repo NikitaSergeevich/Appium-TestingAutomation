@@ -9,19 +9,22 @@ import org.testng.Assert;
 
 public class LoginPage extends BasePage {
     //By root = By.id("root");
-    By go = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.view.ViewGroup[4]");
-    By drawercontent = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.support.v4.widget.DrawerLayout/android.view.ViewGroup[1]");
+    //By go = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.view.ViewGroup[4]");
+    //By drawercontent = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.support.v4.widget.DrawerLayout/android.view.ViewGroup[1]");
     /*By login_Button = By.id("btn_mlogin");
     By existingUser_login = By.id("btn_mlogin");*/
+
+    By btn = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView[2]");
+
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
     public LoginPage invalidLogin() throws InterruptedException {
-        waitForVisibilityOf(go);
-        driver.findElement(go).click();
-        AndroidDriver d = (AndroidDriver) driver;
+        waitForVisibilityOf(btn);
+        driver.findElement(btn).click();
+        /*AndroidDriver d = (AndroidDriver) driver;
         d.swipe(4, 0, 400, 0, 1000);
         Thread.sleep(500);
         d.swipe(400, 0, 4, 0, 1000);
