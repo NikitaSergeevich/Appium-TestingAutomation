@@ -17,10 +17,34 @@ public class AppiumTest extends AndroidSetup {
         driver.quit();
     }
 
-    @Test
-    public void falseLoginTest() throws InterruptedException {
+    /*@Test(priority=1)
+    public void test01() throws InterruptedException {
         new LoginPage(driver).invalidLogin();
-        //Thread.sleep(6000);
+    }*/
+
+    @Test(priority=2)
+    public void test02Camera() throws InterruptedException {
+        new LoginPage(driver).test02Camera();
+    }
+
+    @Test(priority=3)
+    public void test03Password() throws InterruptedException {
+        new LoginPage(driver).test03Password();
+    }
+
+    @Test(priority=3)
+    public void test04Password() throws InterruptedException {
+        new LoginPage(driver).test04Password();
+    }
+
+    @Test(priority=5)
+    public void test05Password() throws InterruptedException {
+        new LoginPage(driver).test05Password();
+    }
+
+    @Test(priority = 6)
+    public void test06Password() throws InterruptedException {
+        new LoginPage(driver).test06PhoneNumber();
     }
 
 }
