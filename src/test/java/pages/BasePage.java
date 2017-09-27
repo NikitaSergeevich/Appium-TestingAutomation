@@ -1,5 +1,9 @@
 package pages;
 
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
+
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,11 +12,6 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.HashMap;
-
-/**
- * Created by nishant on 13/09/14.
- */
 public class BasePage {
 
     protected WebDriver driver;
@@ -21,10 +20,15 @@ public class BasePage {
         this.driver = driver;
     }
 
-    protected void waitForVisibilityOf(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    protected MobileElement waitForVisibilityOf(By locator, int timeout) {
+        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+        try {
+            return (MobileElement) driver.findElement(locator);
+        } catch (Exception e) {
+            return null;
+        }
     }
+
     protected void waitForClickabilityOf(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
