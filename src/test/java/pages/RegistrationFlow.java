@@ -22,7 +22,7 @@ public class RegistrationFlow extends BasePage {
 
     List<Integer> password = new ArrayList<Integer>();
 
-    public void PhoneInputPositive(String phone) {
+    public void skipTutorial() {
         //- Check that "Camera Tutorial" screen is shown.
         //- Enable GPS.
         MobileElement el1 = waitForVisibilityOf(By.id("android:id/button1"), 1);
@@ -32,10 +32,12 @@ public class RegistrationFlow extends BasePage {
             el2.click();
             driver.navigate().back();
         }
-
         // Сlick on "Bottom" button
         MobileElement continueStep = (MobileElement) driver.findElement(By.id("com.humaniq.lite:id/continue_step"));
         continueStep.click();
+    }
+
+    public void PhoneInputPositive(String phone) {
 
         // Check "Phone Input" screen is displayed.
         MobileElement submitButton = waitForVisibilityOf(By.id("com.humaniq.lite:id/submitButton"), 10);
@@ -75,6 +77,7 @@ public class RegistrationFlow extends BasePage {
 
     public void SMSCodeInputPositive() throws InterruptedException {
         //Find field to input and set SMS CODE
+        waitForVisibilityOf(By.id("com.humaniq.lite:id/passcode"), 50);
     }
 
     public void PasswordConfirmNegative() throws InterruptedException {
@@ -127,7 +130,7 @@ public class RegistrationFlow extends BasePage {
 
         Thread.sleep(2000);
 
-        MobileElement preview = waitForVisibilityOf(By.id("com.humaniq.lite:id/preview"), 10);
+        MobileElement preview = waitForVisibilityOf(By.id("com.humaniq.lite:id/preview"), 50);
         Assert.assertNotEquals(preview, null);
         return password;
     }
@@ -145,7 +148,22 @@ public class RegistrationFlow extends BasePage {
         Thread.sleep(2000);
 
         MobileElement preview = waitForVisibilityOf(By.id("com.humaniq.lite:id/preview"), 10);
-        Assert.assertNotEquals(preview, null);
+    }
+
+    public void LoginPasswordInputPositive(List<Integer> password) throws InterruptedException {
+        waitForVisibilityOf(By.id("com.humaniq.lite:id/passcode"), 20);
+        Random randomGenerator = new Random();
+        Thread.sleep(4000);
+        for (int x = 0; x < 4; x = x + 1) {
+            Integer num = password.get(x);
+            MobileElement key = (MobileElement) driver.findElement(By.id(this.getKeyBoardButton(num)));
+            key.click();
+            Thread.sleep(1000);
+        }
+        Thread.sleep(2000);
+
+        MobileElement transactionsRecycler = waitForVisibilityOf(By.id("com.humaniq.lite:id/transactions_recycler"), 10);
+        Assert.assertNotEquals(transactionsRecycler, null);
     }
 
     public void CameraConfirm() throws InterruptedException {
@@ -153,13 +171,21 @@ public class RegistrationFlow extends BasePage {
         Assert.assertNotEquals(confirm, null);
         confirm.click();
 
-        MobileElement repeat = waitForVisibilityOf(By.id("com.humaniq.lite:id/repeat"), 20);
+        MobileElement repeat = waitForVisibilityOf(By.id("com.humaniq.lite:id/repeat"), 60);
         Assert.assertNotEquals(repeat, null);
         confirm.click();
 
-        MobileElement repat = waitForVisibilityOf(By.id("com.humaniq.lite:id/repea"), 40);
-        Assert.assertNotEquals(repat, null);
-        //confirm.click();
+
+        MobileElement transactionRecycler = null;
+
+        while (transactionRecycler == null) {
+            transactionRecycler = waitForVisibilityOf(By.id("com.humaniq.lite:id/transactions_recycler"), 20);
+            if (transactionRecycler == null) {
+                repeat.click();
+                Thread.sleep(2000);
+                confirm.click();
+            }
+        }
     }
 
     private String getKeyBoardButton(int num) {

@@ -18,7 +18,7 @@ public class AppiumTest extends AndroidSetup {
         add(1);
         add(1);
     }};
-    String phone = new String ("9991643734");
+    String phone = new String ("9045197945");
     RegistrationFlow r;
 
     @BeforeClass
@@ -32,45 +32,46 @@ public class AppiumTest extends AndroidSetup {
         driver.quit();
     }
 
-    @Test(priority=2)
-    public void RegistrationPhoneConfirm() throws InterruptedException {
-        r.PhoneInputPositive(phone);
-        r.SMSCodeInputPositive();
-    }
+//    @Test(priority=2)
+//    public void RegistrationRootFlow() throws InterruptedException {
+//        r.skipTutorial();
+//        r.PhoneInputPositive(phone);
+//        r.SMSCodeInputPositive();
+//        this.password = r.PasswordConfirmPositive();
+//        r.CameraConfirm();
+//    }
 
-    @Test(priority=3)
-    public void RegistrationPassword01() throws InterruptedException {
-        r.PasswordConfirmNegative();
-        this.password = r.PasswordConfirmPositive();
-    }
-
-    @Test(priority=4)
-    public void RegistrationPassword02() throws InterruptedException {
-        driver.resetApp();
-        r.PhoneInputPositive(phone);
-        r.SMSCodeInputPositive();
-        r.PasswordInputPositive(password);
-    }
-
-    @Test(priority=5)
-    public void RegistrationCamera() throws InterruptedException {
-        r.CameraConfirm();
-    }
+//
+//    @Test(priority=3)
+//    public void RegistrationPassword01() throws InterruptedException {
+//        r.PasswordConfirmNegative();
+//        this.password = r.PasswordConfirmPositive();
+//    }
+//
+//    @Test(priority=4)
+//    public void RegistrationPassword02() throws InterruptedException {
+//        driver.resetApp();
+//        r.PhoneInputPositive(phone);
+//        r.SMSCodeInputPositive();
+//        r.PasswordInputPositive(password);
+//    }
+//
+//    @Test(priority=5)
+//    public void RegistrationCamera() throws InterruptedException {
+//        r.CameraConfirm();
+//    }
 
     @Test(priority=6)
-    public void LoginFlow() throws InterruptedException {
+    public void LoginFirstRunFlow() throws InterruptedException {
         driver.resetApp();
-        r.PhoneInputPositive(phone);
-        r.SMSCodeInputPositive();
-        r.PasswordInputPositive(password);
-        r.CameraConfirm();
+        r.skipTutorial();
+        r.LoginPasswordInputPositive(password);
     }
 
     @Test(priority=7)
     public void Dashboard() throws InterruptedException {
 
     }
-
 
     /*@Test(priority=3)
     public void test04Password() throws InterruptedException {
