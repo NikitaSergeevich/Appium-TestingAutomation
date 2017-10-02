@@ -33,7 +33,8 @@ public class RegistrationFlow extends BasePage {
             driver.navigate().back();
         }
         // Сlick on "Bottom" button
-        MobileElement continueStep = (MobileElement) driver.findElement(By.id("com.humaniq.lite:id/continue_step"));
+        MobileElement continueStep = waitForVisibilityOf(By.id("com.humaniq.lite:id/continue_step"), 10);
+        Assert.assertNotEquals(continueStep, null);
         continueStep.click();
     }
 
